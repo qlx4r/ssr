@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+use Modern::Perl;
+use lib './vendor/mojolicious/lib';
+use lib './lib';
+
+use Mojolicious::Lite;
+use SSR::Model;
+
+get '/' => sub {
+	
+	my $self = shift;
+	$self->render( 'index' );
+	
+};
+
+app->start;
