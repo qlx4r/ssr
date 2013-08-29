@@ -5,3 +5,8 @@ body {
 h1 {
 	margin-bottom: 48px;
 }
+
+.obligatory {
+	color: red
+}
+
