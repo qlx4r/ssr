@@ -1,0 +1,3 @@
+[submodule "vendor/mojolicious"]
+	path = vendor/mojolicious
+	url = https://github.com/kraih/mojo.git
