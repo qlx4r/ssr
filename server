@@ -5,12 +5,95 @@ use lib './lib';
 
 use Mojolicious::Lite;
 use SSR::Model;
+use Digest::SHA qw/sha1_hex/;
+
+my $DEBUG = 1;
+
+sub error {
+
+	my $self = shift;
+	my $text = shift;
+
+	$self->app->log->warn( $text ) if $DEBUG;
+	$self->flash( error => $text );
+
+}
+
+sub success {
+
+	my $self = shift;
+	my $text = shift;
+
+	$self->app->log->info( $text ) if $DEBUG;
+	$self->flash( success => $text );
+
+}
 
 get '/' => sub {
 	
 	my $self = shift;
-	$self->render( 'index' );
+	$self->render( 'index',
+
+		signatures	=> SSR::Model::Signature::Manager->get_signatures( where => [ active => 1, public => 1 ] ),
+		anonymous	=> SSR::Model::Signature::Manager->get_signatures_count( where => [ active => 1, public => '' ] ),
+
+	);
 	
+};
+
+post '/' => sub {
+
+	my $self = shift;
+
+	unless ( ( $self->param( 'vorname' ) and $self->param( 'nachname' ) ) or $self->param( 'institution' ) ) {
+
+		error( $self, 'Bitte entweder Vornamen und Nachnamen oder eine Institution angeben' );
+		return $self->redirect_to( '/' );
+
+	}
+
+	unless ( $self->param( 'email' ) and $self->param( 'email' ) =~ /@/ ) {		#	wow, this is not really a strict check for email
+
+		error( $self, 'Bitte Emailadresse angeben' );
+		return $self->redirect_to( '/' );
+
+	}
+
+	if ( SSR::Model::Signature::Manager->get_signatures_count( where => [ email => $self->param( 'email' ) ] ) ) {
+
+		error( $self, 'Mit dieser Emailadresse wurde schon unterzeichnet' );
+		return $self->redirect_to( '/' );
+
+	}
+
+	#	so we're good
+
+	my $s = SSR::Model::Signature->new( active	=> 0, nonce	=> sha1_hex( time . int( rand( 10 ** 12 ) ) ) );
+	$s->$_( $self->param( $_ ) ) 	for qw/vorname nachname titel ort institution email comment/;
+	$s->$_( !! $self->param( $_ ) )	for qw/public intouch/;
+	$s->save;
+
+	success( $self, 'Vielen Dank für das Unterzeichnen des Statements. Wir haben Ihnen eine Email geschickt, damit Sie ihre Unterzeichnung bestätigen.' );
+
+	$self->app->log->info( '/confirm/' . $s->nonce ) if $DEBUG;
+
+	$self->redirect_to( '/' );
+
+};
+
+get '/confirm/:nonce' => sub {
+
+	my $self 	= shift;
+	my $s		= SSR::Model::Signature::Manager->get_signatures( where => [ nonce => $self->param( 'nonce' ) ], limit => 1 )->[ 0 ];
+
+	return $self->redirect_to( '/' ) unless $s;
+
+	$s->active( 1 );
+	$s->save;
+
+	success( $self, 'Vielen Dank für das Unterzeichnen des Statements.' );
+	return $self->redirect_to( '/' );
+
 };
 
 app->start;

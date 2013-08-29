@@ -30,6 +30,14 @@
 
 	<div class="container">
 		
+		<% my $error = flash 'error'; if ( $error ) { %>
+			<div class="alert alert-danger"><%= $error %></div>
+		<% } %>
+
+		<% my $success = flash 'success'; if ( $success ) { %>
+			<div class="alert alert-success"><%= $success %></div>
+		<% } %>
+
 		<div class="row">
 			<h1><%= title %></h1>
 		</div>

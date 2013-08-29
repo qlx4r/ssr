@@ -5,9 +5,10 @@ CREATE TABLE signatures (
 	id				INTEGER NOT NULL PRIMARY KEY,
 	vorname			STRING,
 	nachname		STRING,
+	institution		STRING,
+
 	titel			STRING,
 	ort				STRING,
-	affiliation		STRING,
 	email			STRING,
 	public			INTEGER,
 	intouch			INTEGER,
