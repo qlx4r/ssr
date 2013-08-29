@@ -3,8 +3,7 @@
 
 Vielen Dank für das Unterzeichnen des Statements 'Solidarität statt Rassismus'.
 
-Um Ihre Unterzeichnung zu bestätigen, klicken Sie bitten auf
-folgenden Link oder kopieren Sie die folgende URL in die Adresszeile ihres Browsers.
+Um Ihre Unterzeichnung zu bestätigen, klicken Sie bitten auf folgenden Link oder kopieren Sie die folgende URL in die Adresszeile ihres Browsers.
 
 http://solidaritaet-statt-rassismus.kritnet.org/confirm/<%= $s->nonce %>
 

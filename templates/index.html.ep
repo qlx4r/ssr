@@ -60,6 +60,11 @@
 			</div>
 			<button type="submit" class="btn btn-default">Unterzeichnen</button>
 		</form>
+
+		<hr />
+
+		<p><strong>Datenschutzerklärung: </strong> Wir speichern und verwenden Ihre Daten nur im Zusammenhang mit dieser Initiative und gemäß ihren Vorgaben. Die Daten werden nicht an Dritte weitergegeben werden.</p>
+
 	</div>
 
 	<div class="col-md-6" id="list">
