@@ -67,8 +67,9 @@
 	<% } %>
 </ul>
 
-<p>Und <%= $anonymous %> weitere UnterzeichnerInnen.</p>
-
+<% if ( $anonymous ) { %>
+	<p>Und <%= $anonymous %> weitere UnterzeichnerInnen.</p>
+<% } %>
 
 
 

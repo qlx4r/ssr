@@ -1,0 +1,16 @@
+
+% my $s = shift;
+
+Vielen Dank für das Unterzeichnen des Statements 'Solidarität statt Rassismus'.
+
+Um Ihre Unterzeichnung zu bestätigen, klicken Sie bitten auf
+folgenden Link oder kopieren Sie die folgende URL in die Adresszeile ihres Browsers.
+
+http://solidaritaet-statt-rassismus.kritnet.org/confirm/<%= $s->nonce %>
+
+Mit freundlichen Grüßen
+
+Netzwerk Kritische Migrations- und Grenzregimeforschung
+
+http://kritnet.org
+http://solidaritaet-statt-rassismus.kritnet.org

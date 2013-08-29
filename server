@@ -6,6 +6,7 @@ use lib './lib';
 use Mojolicious::Lite;
 use SSR::Model;
 use Digest::SHA qw/sha1_hex/;
+use Email::Stuff;
 
 my $DEBUG = 1;
 
@@ -73,9 +74,19 @@ post '/' => sub {
 	$s->$_( !! $self->param( $_ ) )	for qw/public intouch/;
 	$s->save;
 
-	success( $self, 'Vielen Dank für das Unterzeichnen des Statements. Wir haben Ihnen eine Email geschickt, damit Sie ihre Unterzeichnung bestätigen.' );
+	my $renderer = Mojo::Template->new;
+
+	my $email = Email::Stuff->from( 'solidaritaet-statt-rassismus@kritnet.org' );
+	$email->to(			$s->email );
+	$email->cc(			'solidaritaet-statt-rassismus@kritnet.org' );
+	$email->subject(	'Solidarität statt Rassismus' );
+	$email->text_body(	$renderer->render_file( 'templates/mail.txt.ep', $s ) );
+	my $status = $email->send;
+
+	success( $self, 'Vielen Dank für das Unterzeichnen des Statements. Wir haben Ihnen eine Email geschickt, damit Sie ihre Unterzeichnung bestätigen können.' );
 
 	$self->app->log->info( '/confirm/' . $s->nonce ) if $DEBUG;
+	$self->app->log->info( $status ) if $DEBUG;
 
 	$self->redirect_to( '/' );
 
@@ -96,4 +107,6 @@ get '/confirm/:nonce' => sub {
 
 };
 
+app->config( hypnotoad => { listen => [ 'http://127.0.0.1:5010' ], proxy => 1, } );
+app->secret( 'hohga8uYa8ua2wee9Peijoo4' );
 app->start;
