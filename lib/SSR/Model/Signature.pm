@@ -25,5 +25,30 @@ __PACKAGE__->meta->setup(
     primary_key_columns => [ 'id' ],
 );
 
+sub to_string {
+
+	my $self = shift;
+	my $s;
+
+
+	if ( $self->vorname ) {
+
+		$s = join ' ', grep { $_ } map { $self->$_ } qw/titel vorname nachname/;
+		$s .= ', ' . $self->institution if $self->institution;
+
+	}
+
+	else {
+
+		$s = $self->institution;
+
+	}
+
+	$s .= ', ' . $self->ort if $self->ort;
+
+	return $s;
+
+}
+
 1;
 

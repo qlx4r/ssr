@@ -66,18 +66,18 @@
 
 		<h3>UnterzeichnerInnen</h3>
 
-		<ol>
+		<ul>
 			<% for my $s ( @{ $signatures } ) { %>
 
-				<li><%= $s->email %></li>
+				<li><%= $s->to_string %></li>
 
 			<% } %>
 
 		<% if ( $anonymous ) { %>
-			<li>und <%= $anonymous %> weitere UnterzeichnerInnen…</li>
+			<li><em>und <%= $anonymous %> weitere UnterzeichnerInnen…</em></li>
 		<% } %>
 
-		</ol>
+		</ul>
 
 	</div>
 
