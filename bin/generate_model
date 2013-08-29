@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+use Modern::Perl;
+use lib './lib';
+
+use SSR::Model::DB;
+use Rose::DB::Object::Loader;
+
+my $module_dir = './tmp';
+mkdir( $module_dir ) unless -d $module_dir;
+
+my $db = 'SSR::Model::DB';
+my $cp = 'SSR::Model';
+my $bc = 'SSR::Model::Base';
+
+say "Loading db $db to generate models with class prefix $cp and base class $bc";
+Rose::DB::Object::Loader->new( db => $db->new, class_prefix => $cp, base_classes => $bc )->make_modules( module_dir => $module_dir );
+say "done. packages generated in $module_dir";
