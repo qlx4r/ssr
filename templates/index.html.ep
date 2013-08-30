@@ -82,7 +82,7 @@
 
 	<div class="col-md-6" id="list">
 
-		<h3>UnterzeichnerInnen</h3>
+		<h3>Unterzeichner_innen</h3>
 
 		<ul>
 			<% for my $s ( @{ $signatures } ) { %>
@@ -100,8 +100,3 @@
 	</div>
 
 </div>
-
-
-
-
-
