@@ -21,9 +21,7 @@
 			<div class="alert alert-success"><%= $success %></div>
 		<% } %>
 
-		<div class="row">
-			<%= content %>
-		</div>
+		<%= content %>
 
 	</div><!-- .container -->
 
