@@ -11,12 +11,6 @@
   </head>
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="/">Solidarität statt Rassismus</a>
-      </div>
-    </div>
-
 	<div class="container">
 		
 		<% my $error = flash 'error'; if ( $error ) { %>
