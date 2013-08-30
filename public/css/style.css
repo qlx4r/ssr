@@ -22,9 +22,12 @@ body {
 }
 
 #text h1 { 
-	font-family: 'Quattrocento', serif;
 	font-size: 48px;
 	margin-bottom: 48px;
+}
+
+h1, h2, h3 {
+	font-family: 'Quattrocento', serif;
 }
 
 #text p  { 
