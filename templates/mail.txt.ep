@@ -1,5 +1,6 @@
-
 % my $s = shift;
+
+<%= $s->to_string %>
 
 Vielen Dank für das Unterzeichnen des Statements 'Solidarität statt Rassismus'.
 
