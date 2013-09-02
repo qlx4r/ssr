@@ -37,6 +37,7 @@ get '/' => sub {
 
 		signatures	=> SSR::Model::Signature::Manager->get_signatures( where => [ active => 1, public => 1 ] ),
 		anonymous	=> SSR::Model::Signature::Manager->get_signatures_count( where => [ active => 1, public => '' ] ),
+		count		=> SSR::Model::Signature::Manager->get_signatures_count( where => [ active => 1 ] ),
 
 	);
 	
