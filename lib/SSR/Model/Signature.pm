@@ -20,6 +20,7 @@ __PACKAGE__->meta->setup(
         comment     => { type => 'varchar' },
         nonce       => { type => 'varchar' },
         active      => { type => 'integer' },
+        upvoted		=> { type => 'integer' },
     ],
 
     primary_key_columns => [ 'id' ],

@@ -15,6 +15,7 @@ CREATE TABLE signatures (
 	comment			STRING,
 
 	nonce			STRING,
-	active			INTEGER
+	active			INTEGER,
+	upvoted			INTEGER
 
 );

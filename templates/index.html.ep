@@ -85,10 +85,12 @@
 		<h3>Unterzeichner_innen (<%= $count %>)</h3>
 
 		<ul>
-			<% for my $s ( @{ $signatures } ) { %>
-
+			<% for my $s ( grep { $_->upvoted } @{ $signatures } ) { %>
 				<li><%= $s->to_string %></li>
+			<% } %>
 
+			<% for my $s ( grep { ! $_->upvoted } @{ $signatures } ) { %>
+				<li><%= $s->to_string %></li>
 			<% } %>
 
 		<% if ( $anonymous ) { %>
